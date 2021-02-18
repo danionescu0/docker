@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  gekko:
+    build: ./
+    volumes:
+      - ./volumes/gekko/history:/usr/src/app/history
+      - ./config.js:/usr/src/app/config.js
+    links:
+      - redis
+    environment:
+     - HOST
+     - PORT
+     - USE_SSL
+    ports:
+      - "${PORT}:${PORT}"
+
+  redis:
+    image: redis:latest
+    volumes:
+      - ./volumes/redis:/data
